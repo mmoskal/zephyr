@@ -188,8 +188,9 @@ struct dma_driver_api {
 static inline int dma_config(struct device *dev, u32_t channel,
 			     struct dma_config *config)
 {
-	const struct dma_driver_api *api = dev->driver_api;
+	const struct dma_driver_api *api;
 
+	api = (const struct dma_driver_api *)dev->driver_api;
 	return api->config(dev, channel, config);
 }
 
@@ -211,8 +212,9 @@ __syscall int dma_start(struct device *dev, u32_t channel);
 
 static inline int _impl_dma_start(struct device *dev, u32_t channel)
 {
-	const struct dma_driver_api *api = dev->driver_api;
+	const struct dma_driver_api *api;
 
+	api = (const struct dma_driver_api *)dev->driver_api;
 	return api->start(dev, channel);
 }
 
@@ -233,8 +235,9 @@ __syscall int dma_stop(struct device *dev, u32_t channel);
 
 static inline int _impl_dma_stop(struct device *dev, u32_t channel)
 {
-	const struct dma_driver_api *api = dev->driver_api;
+	const struct dma_driver_api *api;
 
+	api = (const struct dma_driver_api *)dev->driver_api;
 	return api->stop(dev, channel);
 }
 

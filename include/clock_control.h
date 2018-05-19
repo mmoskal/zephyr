@@ -51,8 +51,9 @@ struct clock_control_driver_api {
 static inline int clock_control_on(struct device *dev,
 				   clock_control_subsys_t sys)
 {
-	const struct clock_control_driver_api *api = dev->driver_api;
+	const struct clock_control_driver_api *api;
 
+	api = (const struct clock_control_driver_api *)dev->driver_api;
 	return api->on(dev, sys);
 }
 
@@ -65,8 +66,9 @@ static inline int clock_control_on(struct device *dev,
 static inline int clock_control_off(struct device *dev,
 				    clock_control_subsys_t sys)
 {
-	const struct clock_control_driver_api *api = dev->driver_api;
+	const struct clock_control_driver_api *api;
 
+	api = (const struct clock_control_driver_api *)dev->driver_api;
 	return api->off(dev, sys);
 }
 
@@ -81,7 +83,9 @@ static inline int clock_control_get_rate(struct device *dev,
 					 clock_control_subsys_t sys,
 					 u32_t *rate)
 {
-	const struct clock_control_driver_api *api = dev->driver_api;
+	const struct clock_control_driver_api *api;
+	
+	api = (const struct clock_control_driver_api *)dev->driver_api;
 
 	__ASSERT(api->get_rate, "%s not implemented for device %s",
 		__func__, dev->config->name);
